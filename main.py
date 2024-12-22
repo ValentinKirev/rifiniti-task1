@@ -1,6 +1,9 @@
 import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score
+
 
 # load data as Pandas DataFrame
 url = "https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data"
@@ -47,3 +50,19 @@ simulated_df["sepal_length"].fillna(simulated_df["sepal_length"].mean(), inplace
 # Verify that missing values are handled
 print("Result with handled missing values: ")
 print(f"{simulated_df.isnull().sum()}\n")
+
+# Splitting into training and test sets
+X = data_frame.iloc[:, :-1]
+y = data_frame.iloc[:, -1]
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.5, random_state=50)
+
+# Initialize and train Logistic Regression Model
+log_reg = LogisticRegression()
+log_reg.fit(X_train, y_train)
+
+# Evaluation using Accuracy model
+y_pred = log_reg.predict(X_test)
+accuracy = accuracy_score(y_pred, y_test)
+
+print(f"Accuracy model result: {accuracy}")
