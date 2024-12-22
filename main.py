@@ -1,4 +1,5 @@
 import pandas as pd
+import matplotlib.pyplot as plt
 
 # load data as Pandas DataFrame
 url = "https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data"
@@ -10,7 +11,13 @@ data_frame = pd.read_csv(url, names=columns_names)
 print("Summary statistics: ")
 print(f"{data_frame.describe()}\n")
 
-
 # Print count of unique values in the "species" column
 print("Count of unique values in the 'species' column: ")
 print(f"{data_frame['species'].value_counts()}\n")
+
+# Create histogram for "Sepal Length" column
+plt.hist(data_frame["sepal_length"], bins=25, color="blue", edgecolor="black")
+plt.xlabel("Values")
+plt.ylabel("Frequency")
+plt.title("Histogram of Sepal Lenght")
+plt.show()
