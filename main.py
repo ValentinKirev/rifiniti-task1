@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
 
 # load data as Pandas DataFrame
@@ -28,3 +29,21 @@ plt.title("Scatter plot for comparing Sepal Length and Sepal Width")
 plt.xlabel("Sepal Length")
 plt.ylabel("Sepal Width")
 plt.show()
+
+# Identifies missing values in the dataset
+print("Missing values in the dataset: ")
+print(f"{data_frame.isnull().sum()}\n")
+
+# Simulating missing values
+simulated_df = data_frame.copy()
+simulated_df["sepal_length"] = simulated_df["sepal_length"].replace(5.9, None)
+
+print("Result simulated with missing values in 'Sepal length' column: ")
+print(f"{simulated_df.isnull().sum()}\n")
+
+# Handling missing values
+simulated_df["sepal_length"].fillna(simulated_df["sepal_length"].mean(), inplace=True)
+
+# Verify that missing values are handled
+print("Result with handled missing values: ")
+print(f"{simulated_df.isnull().sum()}\n")
